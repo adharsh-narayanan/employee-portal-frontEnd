@@ -1,0 +1,64 @@
+<div class="bg-body-secondary row d-flex container-fluid ">
+    <div class="m-3 col-md-3 rounded " style="width: 250px; ">
+
+        <div>
+            <div style="cursor: pointer;" class="p-3 bg-primary text-center text-light rounded m-3 ">
+                <a routerLink="/dashboard" style="text-decoration: none;color: white;" href="">Home</a>
+            </div>
+            <div style="cursor: pointer;" class="bg-primary p-3 text-center text-light rounded m-3">
+                <a routerLink="/employee" style="text-decoration: none;color: white;" href="">Employees</a>
+            </div>
+            <div></div>
+        </div>
+
+    </div>
+    <div class=" col-md-9  rounded bg-light m-3 p-4 " style="height: 90vh;">
+        <div class="d-flex row align-items-center justify-content-center mt-5">
+            <h3 class="text-center mb-3" style="color: rgb(33, 33, 48);">Update User Details</h3>
+
+            <div class="col-md-2 "></div>
+            <div class="col-md-8 shadow p-4">
+                <form action="" class="">
+                    <div class=" mb-3">
+                        <input  #empId="ngModel"  type="text" class="form-control" name="id" placeholder=" id"
+                            [(ngModel)]="employee.id" required pattern="[0-9]*">
+                        <span *ngIf="empId.invalid" class="text-danger">*Invalid input</span>
+                    </div>
+                    <div class="mb-3">
+
+                        <input  #empName="ngModel" type="text" class="form-control " name="uname" placeholder="username"
+                            [(ngModel)]="employee.username" required pattern="^[a-zA-Z ]{3,}$">
+                        <span *ngIf="empName.invalid" class="text-danger ">*Invalid input</span>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <input  #empMail="ngModel" type="text" class="form-control" name="email" placeholder="E-mail"
+                            [(ngModel)]="employee.email" required email>
+                            <span *ngIf="empMail.invalid" class="text-danger">*Invalid input</span>
+
+                    </div>
+                   <div class="mb-3">
+                        <select   #empStatus="ngModel" class="form-select " va name="status" id="status" [(ngModel)]="employee.status" required>
+                            <option value="select" selected disabled>select</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                        </select>
+                    <span *ngIf="empStatus.invalid" class="text-danger">*Invalid input</span>
+
+                   </div>
+                   
+                    <div class="d-flex">
+                        <button class="btn btn-warning me-3" (click)="cancelEdit(employee.id)">Cancel</button>
+                        <button class="btn btn-success" (click)="updateEmployee(employee.id)">Update</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"></div>
+
+        </div>
+
+    </div>
+
+
+</div>

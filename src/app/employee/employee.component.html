@@ -1,0 +1,93 @@
+<div class="bg-body-secondary row d-flex container-fluid ">
+    <div class="m-3 col-md-3 rounded " style="width: 250px; ">
+
+        <div>
+            <div style="cursor: pointer;" class="p-3 bg-primary text-center text-light rounded m-3 ">
+                <a routerLink="/dashboard" style="text-decoration: none;color: white;" href="">Home</a>
+            </div>
+            <div style="cursor: pointer;" class="bg-primary p-3 text-center text-light rounded m-3">
+                <a routerLink="/employee" style="text-decoration: none;color: white;" href="">Employees</a>
+            </div>
+            <div></div>
+        </div>
+
+    </div>
+    <div class=" col-md-9  rounded bg-light m-3 p-4 " style="height: 90vh;">
+        <div class="d-flex align-items-center mb-2" style="height: 6vh;">
+            <h3 class="">Employee List</h3>
+            <button class="btn btn-outline-secondary ms-auto">
+                <a routerLink="/add" style="text-decoration: none;"> <i class="fa-solid fa-user-plus me-2"></i>Add</a>
+            </button>
+        </div>
+        <h6>{{loginTime | date:'short'}}</h6>
+
+        <div class="d-flex">
+            <input type="text" placeholder="user-name" class="form-control w-25 me-2"[(ngModel)]="searchKey">
+
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li type="button" class="p-2" (click)="sortbyName()">By Name</li>
+                    <li type="button" class="p-2" (click)="sortbyId()">By Id</li>
+                </ul>
+            </div>
+
+            <button class="btn btn-info ms-auto" (click)="generatePdf()">Export</button>
+
+
+
+
+
+        </div>
+        <div class="row  mt-5">
+
+            <div class="col-md-12 col-sm-12 table-responsive">
+              
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="p-3 bg-secondary text-light">User id</th>
+                            <th class="p-3 bg-secondary text-light">Username</th>
+                            <th class="p-3 bg-secondary text-light">Email</th>
+                            <th class="p-3 bg-secondary text-light">status</th>
+                            <th class="p-3 bg-secondary text-light text-center">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let employee of allEmployees | search:searchKey | paginate: { itemsPerPage: 5, currentPage: p }">
+                            <td>{{employee.id}}</td>
+                            <td>{{employee.username}}</td>
+                            <td>{{employee.email}}</td>
+                            <td>
+                                <button
+                                    [ngClass]="employee.status=='1'?'btn btn-success':'btn btn-warning'">{{employee.status=='1'?'Active':'Inactive'}}
+                                </button>
+                            </td>
+                            <td class="d-flex justify-content-evenly">
+                                <a routerLink="/edit/{{employee.id}}"> <button class="btn text-warning"><i
+                                            class="fa-solid fa-pen"></i></button></a>
+                                <button class="btn text-danger" (click)="deleteemployee(employee.id)"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="(allEmployees | search:searchKey).length==0">
+                            <p class="text-center text-danger">No Employees</p>
+                        </tr>
+                    </tbody>
+
+
+                </table>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
